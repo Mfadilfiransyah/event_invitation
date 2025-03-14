@@ -12,7 +12,7 @@ include '.includes/toast_notification.php';
         <div class="card">
             <!-- Header Tabel -->
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>UNDANGAN</h4>
+                <h4>INVITATION</h4>
             </div>
             <div class="card-body">
                 <!-- Tabel responsif -->
