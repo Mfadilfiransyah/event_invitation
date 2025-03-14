@@ -6,14 +6,14 @@ include 'config.php';
 session_start();
 
 //mendapatkan id pengguna
-$userId = $_SESSION["user_id"];
+$tamuId = $_SESSION["tamu_id"];
 
 
 if (isset($_POST['simpan'])) {
     //mendapatkan data dari form
     $postTitle = $_POST["post_title"];
     $content = $_POST["content"];
-    $categoryId = $_POST["category_id"];
+    $acaraId = $_POST["acara_id"];
 
     //mengatur direktori
     $imageDir = "assets/img/uploads/";
@@ -24,8 +24,8 @@ if (isset($_POST['simpan'])) {
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath)) {
         // jika unggahan berhasil masukkan
         // data postingan ke dalam database
-        $query = "INSERT INTO posts (post_title, content, created_at, category_id, user_id, image_path) VALUES 
-        ('$postTitle', '$content', NOW(), $categoryId, $userId, '$imagePath')";
+        $query = "INSERT INTO undangan (post_title, content, created_at, acara_id, tamu_id, image_path) VALUES 
+        ('$postTitle', '$content', NOW(), $acaraId, $tamuId, '$imagePath')";
 
         
     if ($conn->query($query) === TRUE) {
@@ -60,7 +60,7 @@ if (isset($_POST['delete'])) {
     $postID = $_POST['postID'];
 
     //query untuk menghapus post 
-    $exec = mysqli_query($conn, "DELETE FROM posts WHERE id_post='$postID'");
+    $exec = mysqli_query($conn, "DELETE FROM undangan WHERE undangan_id='$postID'");
 
     //menyimpan notifikasi keberhasilan atau kegagalan
     if ($exec) {
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
     $postId = $_POST['post_id'];
     $postTitle = $_POST["post_title"];
     $content = $_POST["content"];
-    $categoryId = $_POST["category_id"];
+    $acaraId = $_POST["acara_id"];
     $imageDir = "assets/img/uploads/";
 
     //memeriksa file gambar
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         move_uploaded_file($_FILES["image_path"]["tmp_name"], $imagePath);
 
         //hapus gambar lama
-        $queryOldImage = "SELECT image_path FROM posts WHERE id_post = $postId";
+        $queryOldImage = "SELECT image_path FROM undangan WHERE undangan_id = $postId";
         $resultOldImage = $conn->query($queryOldImage);
         if ($resultOldImage->num_rows > 0) {
             $oldImage = $resultOldImage->fetch_assoc()['image_path'];
@@ -108,15 +108,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update'])) {
         }
     } else {
         // jika tidak ada file baru gunakan file lama
-        $imagePathQuery = "SELECT image_path FROM posts WHERE id_post = $postId";
+        $imagePathQuery = "SELECT image_path FROM undangan WHERE undangan_id = $postId";
         $result = $conn->query($imagePathQuery);
         $imagePath = ($result->num_rows > 0) ? $result->fetch_assoc()['image_path'] : null;
     }
 
     //update data postingan di database
-    $queryUpdate = "UPDATE posts SET post_title = '$postTitle',
-    content = '$content', category_id = $categoryId,
-    image_path = '$imagePath' WHERE id_post = $postId";
+    $queryUpdate = "UPDATE undangan SET post_title = '$postTitle',
+    content = '$content', acara_id = $acaraId,
+    image_path = '$imagePath' WHERE undangan_id = $postId";
 
     if ($conn->query($queryUpdate) === TRUE) {
         //notifikasi berhasil

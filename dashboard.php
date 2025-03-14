@@ -12,7 +12,7 @@ include '.includes/toast_notification.php';
         <div class="card">
             <!-- Header Tabel -->
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4>Semua Postingan</h4>
+                <h4>UNDANGAN</h4>
             </div>
             <div class="card-body">
                 <!-- Tabel responsif -->
@@ -22,8 +22,8 @@ include '.includes/toast_notification.php';
                 <tr class="text-center">
                      <th width="50px">#</th>
                      <th>Judul Post</th>
-                     <th>Penulis</th>
-                     <th>Kategori</th>
+                     <th>Pengundang</th>
+                     <th>Kategori event</th>
                      <th width="150px">Pilihan</th>
                 </tr>
             </thead>
@@ -31,22 +31,22 @@ include '.includes/toast_notification.php';
 <!-- Menampilkan data dari tabel database -->
 <?php
 $index = 1; // Variabel untuk nomor urut
-// Query untuk mengambil data dari tabel posts, users, dan categories
-$query = "SELECT posts.*, users.name as user_name, categories.category_name FROM posts
-          INNER JOIN users ON posts.user_id = users.user_id
-          LEFT JOIN categories ON posts.category_id = categories.category_id
-          WHERE posts.user_id = $userId";
+// Query untuk mengambil data dari tabel undangan, tamu, dan acara
+$query = "SELECT undangan.*, tamu.namaTamu as namaTamu, acara.nama_acara FROM undangan
+          INNER JOIN tamu ON undangan.tamu_id = tamu.tamu_id
+          LEFT JOIN acara ON undangan.acara_id = acara.acara_id
+          WHERE undangan.tamu_id = $tamuId";
 // Eksekusi query
 $exec = mysqli_query($conn, $query);
 
 // Perulangan untuk menampilkan setiap baris hasil query
-while ($post = mysqli_fetch_assoc($exec)) :
+while ($undangan = mysqli_fetch_assoc($exec)) :
 ?>
 <tr>
     <td><?= $index++; ?></td>
-    <td><?= $post['post_title']; ?></td>
-    <td><?= $post['user_name']; ?></td>
-    <td><?= $post['category_name']; ?></td>
+    <td><?= $undangan['post_title']; ?></td>
+    <td><?= $undangan['namaTamu']; ?></td>
+    <td><?= $undangan['nama_acara']; ?></td>
     <td>
         <div class="dropdown">
             <!-- Tombol dropdown untuk Pilihan -->
@@ -56,13 +56,13 @@ while ($post = mysqli_fetch_assoc($exec)) :
             <!-- Menu dropdown -->
             <div class="dropdown-menu">
                 <!-- Pilihan Edit -->
-                <a href="edit_post.php?post_id=<?= $post['id_post']; ?>" class="dropdown-item">
+                <a href="edit_post.php?post_id=<?= $undangan['undangan_id']; ?>" class="dropdown-item">
                     <i class="bx bx-edit-alt me-2"></i> Edit
                 </a>
 
 <!-- Pilihan Delete -->
 <a href="#" class="dropdown-item" data-bs-toggle="modal"
-    data-bs-target="#deletePost_<?= $post['id_post']; ?>">
+    data-bs-target="#deletePost_<?= $undangan['undangan_id']; ?>">
     <i class="bx bx-trash me-2"></i> Delete
 </a>
 </div>
@@ -71,7 +71,7 @@ while ($post = mysqli_fetch_assoc($exec)) :
 </tr>
 
 <!-- Modal untuk Hapus Konten Blog -->
-<div class="modal fade" id="deletePost_<?= $post['id_post']; ?>" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="deletePost_<?= $undangan['undangan_id']; ?>" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -82,7 +82,7 @@ while ($post = mysqli_fetch_assoc($exec)) :
                 <form action="proses_post.php" method="POST">
                     <div>
                         <p>Tindakan ini tidak bisa dibatalkan.</p>
-                        <input type="hidden" name="postID" value="<?= $post['id_post']; ?>">
+                        <input type="hidden" name="postID" value="<?= $undangan['undangan_id']; ?>">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>

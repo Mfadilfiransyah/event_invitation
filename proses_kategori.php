@@ -8,10 +8,10 @@ session_start();
 // Proses penambahan kategori baru
 if (isset($_POST['simpan'])) {
     // Mengambil data nama kategori dari form
-    $category_name = $_POST['category_name'];
+    $nama_acara = $_POST['nama_acara'];
 
     // Query untuk menambahkan data kategori ke dalam database
-    $query = "INSERT INTO categories (category_name) VALUES ('$category_name')";
+    $query = "INSERT INTO acara (nama_acara) VALUES ('$nama_acara')";
     $exec = mysqli_query($conn, $query);
 
     // Menyimpan notifikasi berhasil atau gagal ke dalam session
@@ -37,7 +37,7 @@ if (isset($_POST['delete'])) {
     $catID = $_POST['catID'];
 
     // Query untuk menghapus kategori berdasarkan ID
-    $exec = mysqli_query($conn, "DELETE FROM categories WHERE category_id='$catID'");
+    $exec = mysqli_query($conn, "DELETE FROM acara WHERE acara_id='$catID'");
 
     // Menyimpan notifikasi keberhasilan atau kegagalan ke dalam session
     if ($exec) {
@@ -60,10 +60,10 @@ if (isset($_POST['delete'])) {
 if (isset($_POST['update'])) {
     // Mengambil data dari form pembaruan
     $catID = $_POST['catID'];
-    $category_name = $_POST['category_name'];
+    $nama_acara = $_POST['nama_acara'];
 
     // Query untuk memperbarui data kategori berdasarkan ID
-    $query = "UPDATE categories SET category_name = '$category_name' WHERE category_id='$catID'";
+    $query = "UPDATE acara SET nama_acara = '$nama_acara' WHERE acara_id='$catID'";
     $exec = mysqli_query($conn, $query);
 
     // Menyimpan notifikasi keberhasilan atau kegagalan ke dalam session

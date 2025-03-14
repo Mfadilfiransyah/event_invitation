@@ -6,13 +6,13 @@
     <div class="app-brand justify-content-center">
       <a href="index.html" class="app-brand-link gap-2">
         <span class="app-brand-logo demo"></span>
-        <span class="app-brand-text demo text-uppercase fw-bolder">IdeKreatif</span>
+        <span class="app-brand-text demo text-uppercase fw-bolder">Event Invitation</span>
       </a>
     </div>
     <!-- /Logo -->
     <form action="register_process.php" class="mb-3" method="POST">
       <div class="mb-3">
-        <label for="namaTamu" class="form-label">NAMA TAMU</label>
+        <label for="namaTamu" class="form-label">NAMA</label>
         <input type="text" class="form-control" name="namaTamu" placeholder="Masukkan namaTamu" autofocus/>
       </div>
       <div class="mb-3">

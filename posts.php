@@ -13,27 +13,27 @@ include '.includes/header.php';
                     <form method="POST" action="proses_post.php" enctype="multipart/form-data">
                         <!-- Input untuk judul postingan -->
                         <div class="mb-3">
-                            <label for="post_title" class="form-label">Judul Postingan</label>
+                            <label for="post_title" class="form-label">NAMA PENGUNDANG</label>
                             <input type="text" class="form-control" name="post_title" required>
                         </div>
 
                         <!-- Input untuk mengunggah gambar -->
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">Unggah Gambar</label>
+                            <label for="formFile" class="form-label">UNGGAH GAMBAR</label>
                             <input class="form-control" type="file" name="image" accept="image/*" />
                         </div>
 
                         <!-- Dropdown untuk memilih kategori -->
                         <div class="mb-3">
-                            <label for="category_id" class="form-label">Kategori</label>
-                            <select class="form-select" name="category_id" required>
+                            <label for="acara_id" class="form-label">KATEGORI EVENT</label>
+                            <select class="form-select" name="acara_id" required>
                                 <option value="" selected disabled>Pilih salah satu</option>
                                 <?php
-                                $query = "SELECT * FROM categories"; // Query untuk mengambil data kategori
+                                $query = "SELECT * FROM acara"; // Query untuk mengambil data kategori
                                 $result = $conn->query($query); // Menjalankan query kategori
                                 if ($result->num_rows > 0) { // Jika terdapat data kategori
                                     while ($row = $result->fetch_assoc()) { // Iterasi setiap kategori
-                                        echo "<option value='" . $row["category_id"] . "'>" . $row["category_name"] . "</option>";
+                                        echo "<option value='" . $row["acara_id"] . "'>" . $row["nama_acara"] . "</option>";
                                     }
                                 }
                                 ?>
@@ -42,7 +42,7 @@ include '.includes/header.php';
 
                         <!-- Textarea untuk konten postingan -->
                         <div class="mb-3">
-                            <label for="content" class="form-label">Konten</label>
+                            <label for="content" class="form-label">DESKRIPSEN</label>
                             <textarea class="form-control" id="content" name="content" required></textarea>
                         </div>
 
